@@ -1,0 +1,34 @@
+<mapping>
+  <word>
+    <string>one</string>
+    <value>1</value>
+  </word>
+  <word>
+    <string>two</string>
+    <value>2</value>
+  </word>
+  <word>
+    <string>three</string>
+    <value>3</value>
+  </word>
+  <word>
+    <string>four</string>
+    <value>4</value>
+  </word>
+  <word>
+    <string>five</string>
+    <value>5</value>
+  </word>
+  <word>
+    <string>zero</string>
+    <value>0</value>
+  </word>
+  <word>
+    <string>move</string>
+    <value>move</value>
+  </word>
+  <word>
+    <string>stop</string>
+    <value>stop</value>
+  </word>
+</mapping>

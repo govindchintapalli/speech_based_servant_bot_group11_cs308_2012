@@ -1,0 +1,77 @@
+import java.io.File;
+import org.w3c.dom.Document;
+import org.w3c.dom.*;
+
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.DocumentBuilder;
+import org.xml.sax.SAXException;
+import org.xml.sax.SAXParseException; 
+
+public class ReadAndPrintXMLFile{
+
+	static NodeList listOfwords = null;
+    static DocumentBuilderFactory docBuilderFactory = null;
+    static DocumentBuilder docBuilder = null;
+    static Document doc = null;
+    
+    
+    static void initXML() throws Exception {
+	    docBuilderFactory = DocumentBuilderFactory.newInstance();
+        docBuilder = docBuilderFactory.newDocumentBuilder();
+        doc = docBuilder.parse (new File("mapping.xml"));
+	    doc.getDocumentElement ().normalize ();
+    	listOfwords = doc.getElementsByTagName("word");
+    }
+	
+	static String ValueOf(String search_str){
+    
+    	
+        int totalwords = listOfwords.getLength();
+		String pres_str = "",value="";
+		Element ele=null,string=null,valstring=null;
+		NodeList vallst=null,lst=null,text=null,valtext=null;
+		Node pres=null;
+        for(int s=0; s<listOfwords.getLength() ; s++){
+			pres = listOfwords.item(s);
+			if(pres.getNodeType() == Node.ELEMENT_NODE){
+				ele = (Element)pres;
+                lst = ele.getElementsByTagName("string");
+                string = (Element)lst.item(0);
+                text = string.getChildNodes();
+                pres_str =  ((Node)text.item(0)).getNodeValue().trim();
+                if(pres_str.equals(search_str)){
+                	vallst = ele.getElementsByTagName("value");
+	                valstring = (Element)vallst.item(0);
+	                valtext = valstring.getChildNodes();
+	                value =  ((Node)valtext.item(0)).getNodeValue().trim();
+	              
+                }
+                
+			}
+    
+    	}//end of for loop with s var
+		return value;	
+	}
+	
+    public static void main (String argv []){
+    try {
+      String s = ""+(char)67;
+			System.out.println(s);	
+			initXML();
+            System.out.println(ValueOf("one"));
+            System.out.println(ValueOf("zero"));
+            System.out.println(ValueOf("two"));
+            System.out.println(ValueOf("three"));
+            System.out.println(ValueOf("four"));
+            System.out.println(ValueOf("move"));
+
+            
+
+    }
+    catch (Throwable t) {
+        
+    }
+    }
+
+
+}
