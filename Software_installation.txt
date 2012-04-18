@@ -1,0 +1,4 @@
+Android SDK can be downloaded from http://developer.android.com/sdk/index.html
+
+Pocket sphinx can be dowloaded and indtalled as given in http://cmusphinx.sourceforge.net/2011/05/building-pocketsphinx-on-android/
+All the necessary instructions are given there.
