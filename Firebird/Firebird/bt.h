@@ -1,0 +1,83 @@
+#include <string.h>
+#include "vars.h"
+
+/**
+message formats:
+"STOP": stop ASAP (in next junction) : len = 4
+"MOVE x y":add (x,y) to the list of next_destinations : len = 8
+**/
+void bluetooth(){
+	int tmpx,tmpy;
+	if(len==4 && strncmp("STOP",inpStr,4)==0){
+		next_stop = 1;
+	}
+	else if(len==8 && strncmp("MOVE",inpStr,4)==0){
+		tmpx = (inpStr[5]-'0');
+		tmpy = (inpStr[7]-'0');
+		if(off_d == pres_off){
+			off_d=0;
+			pres_off=0;
+		}
+		next_dest[off_d++]=tmpx+tmpy*6;
+	}
+	read_inp  = 0;
+	lcd_cursor(2,1);
+	lcd_string("got it");
+	_delay_ms(2000);
+}
+
+/*Function to Initialize USART3 for Communication with Bluetooth
+	Baud Rate = 9600
+	8 bit
+	No Parity
+	Transmit and Recieve interrupt Enable*/
+void Init_USART3()
+{
+/*	UCSR3B = 0x00;
+	UCSR3A = 0x00;
+	UCSR3C = 0x06;
+	UBRR3L = 0x5F;
+	UBRR3H = 0x00;
+	UCSR3B = 0x98;*/
+
+	 UCSR3B = 0x00; //disable while setting baud rate
+	 UCSR3A = 0x00;
+	 UCSR3C = 0x06;
+	 //This is for 14745600
+	 //UBRR3L = 0x5F; //set baud rate lo
+	 UBRR3L = 0x5F;
+	 UBRR3H = 0x00; //set baud rate hi
+	 UCSR3B = 0x98;
+}
+
+/*Recieve Interrupt Handler
+	Returns Character String Arrived in main_buf array
+	Indicates Main Routine after Whole String Has Arrived*/
+
+int i;
+SIGNAL(SIG_USART3_RECV)
+{
+
+ 	data = UDR3;
+	
+	char  x[10] ;
+	lcd_cursor(1,1);
+	lcd_wr_char(data);
+	sprintf(x,"%c ",data);
+	lcd_string(x);
+	if (data != 0x0a  && (char)data != 0x0a)
+	{
+		backup[backlen++] = data;
+		lcd_cursor(1,1);
+		lcd_string(backup);
+	}
+	else{
+		read_inp  = 1;
+		
+		len = backlen;
+		for(i=0;i<len;i++)inpStr[i]=backup[i];
+		inpStr[len] = 0;
+		backlen = 0;
+	}
+}
+
