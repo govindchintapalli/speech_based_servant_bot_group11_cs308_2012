@@ -30,7 +30,7 @@ Installation Instructions
 =========================
 
 +   For andriod application development, Android SDK and Android NDK need to be downloaded from "http://developer.android.com/"
-+   Pocket Sphinx speech recognition library can be downloaded from "http://cmusphinx.sourceforge.net/". 
++   Pocket Sphinx speech recognition library can be downloaded from "http://cmusphinx.sourceforge.net/2011/05/building-pocketsphinx-on-android/". 
     Installation instructions are all there in this page.
 
 
@@ -40,5 +40,5 @@ References
 Please give references to importance resources. 
 
 +   Android app development   (http://developer.android.com/)
-+   Pocket sphinx library     (http://cmusphinx.sourceforge.net/)
++   Pocket sphinx library     (http://cmusphinx.sourceforge.net/2011/05/building-pocketsphinx-on-android/)
 +   Bluetooth module for bot  (http://daffinz.com/education/downloads/Datasheets/Modules/BlueLINK%20-%20Bluetooth%20Module%20-User%20Manual.pdf)
